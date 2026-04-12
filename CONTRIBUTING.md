@@ -69,14 +69,15 @@ These steps are mandatory during the CI.
 To build docs locally:
 
 ```bash
-just docs
+just docs clean
+just docs html
 ```
 
 If docs build fails on macOS with multiprocessing-related errors while
 running examples, force the start method explicitly:
 
 ```bash
-DMR_SPAWN_METHOD=spawn just docs
+DMR_SPAWN_METHOD=spawn just docs html
 ```
 
 
