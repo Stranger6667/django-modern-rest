@@ -76,7 +76,7 @@ If docs build fails on macOS with multiprocessing-related errors while
 running examples, force the start method explicitly:
 
 ```bash
-DMR_SPAWN_METHOD=spawn just docs html
+DMR_SPAWN_METHOD=spawn just docs clean html
 ```
 
 
