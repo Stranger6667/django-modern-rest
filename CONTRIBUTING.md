@@ -69,8 +69,7 @@ These steps are mandatory during the CI.
 To build docs locally:
 
 ```bash
-just docs clean
-just docs html
+just docs clean html
 ```
 
 If docs build fails on macOS with multiprocessing-related errors while

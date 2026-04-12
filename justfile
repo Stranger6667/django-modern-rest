@@ -3,7 +3,11 @@ _default:
     @just --list --unsorted --list-submodules
 
 mod bench 'benchmarks/justfile'
-mod docs 'docs/justfile'
+
+# Catch-all: run one or more Sphinx doc targets. E.g., `just docs clean html`
+[group('docs')]
+docs +targets:
+    cd docs && just build {{targets}}
 
 # Format code with ruff
 [group('dev')]

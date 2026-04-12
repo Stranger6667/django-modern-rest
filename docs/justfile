@@ -1,22 +1,19 @@
 # Minimal justfile for Sphinx documentation
 
+set positional-arguments
+
 # You can set these variables from the command line.
 sphinxopts := env("SPHINXOPTS", "-W")
 sourcedir  := "."
 builddir   := "_build"
 
-[private]
-sphinx target *opts:
-    @uv run python -msphinx -M "{{target}}" "{{sourcedir}}" "{{builddir}}" {{sphinxopts}} {{opts}}
+# Show Sphinx help
+_default:
+    @uv run python -msphinx -M help "{{sourcedir}}" "{{builddir}}" {{sphinxopts}}
 
-# Show Sphinx help (default)
-_default: (sphinx "help")
-
-# Build HTML documentation
-html *opts: (sphinx "html" opts)
-
-# Remove build output
-clean *opts: (sphinx "clean" opts)
-
-# Pass-through: route any target to Sphinx
-build target *opts: (sphinx target opts)
+# Catch-all: run one or more Sphinx targets. E.g., `just build clean html`
+build +targets:
+    #!/usr/bin/env bash
+    for target in "$@"; do
+        uv run python -msphinx -M "$target" "{{sourcedir}}" "{{builddir}}" {{sphinxopts}}
+    done
