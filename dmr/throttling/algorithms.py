@@ -115,7 +115,7 @@ class LeakyBucket(BaseThrottleAlgorithm):
     ) -> CachedRateLimit:
         """Record access by adding water to the bucket."""
         history = cache_object['history']
-        history[0] += history[2]
+        history[0] += history[2]  # scaled level += duration
         return cache_object
 
     @override
@@ -156,10 +156,10 @@ class LeakyBucket(BaseThrottleAlgorithm):
                 now,
             )
         history = cache_object['history']
-        elapsed = now - history[1]
+        elapsed = now - history[1]  # last-check timestamp
         level = max(
             0,
-            history[0] - elapsed * throttle.max_requests,
+            history[0] - elapsed * throttle.max_requests,  # scaled level
         )
         return (
             CachedRateLimit(
